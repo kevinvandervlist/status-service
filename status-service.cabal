@@ -1,0 +1,17 @@
+name:               status-service
+version:            1.0.0
+build-type:         Simple
+cabal-version:      >= 1.20
+
+executable status-service
+  main-is:            Main.hs
+  default-language:   Haskell2010
+  ghc-options:        -O2 -Wall -threaded
+  build-depends:      base,
+                      happstack-server,
+                      json,
+                      HUnit,
+                      QuickCheck,
+                      tasty,
+                      tasty-quickcheck,
+                      tasty-hunit
