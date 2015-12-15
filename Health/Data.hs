@@ -10,7 +10,7 @@ import Control.Applicative ((<$>), (<*>))
 import Control.Monad (liftM)
 import qualified Data.ByteString.Lazy.Char8 as BS
 
-data ServiceState = Up | Down | Unknown deriving (Show, Eq)
+data ServiceState = Up | Down | Unknown deriving (Show, Eq, Data)
 
 data ServiceHealth = ServiceHealth {
     servicename :: String,
@@ -19,7 +19,7 @@ data ServiceHealth = ServiceHealth {
     hostname :: String,
     timestamp :: Int,
     dependencies :: [ServiceHealth]
-} deriving (Show, Eq)
+} deriving (Show, Eq, Data)
 
 instance FromJSON ServiceHealth where
   parseJSON (Object v) =
