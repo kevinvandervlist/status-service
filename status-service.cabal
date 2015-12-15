@@ -1,7 +1,7 @@
 name:               status-service
 version:            1.0.0
 build-type:         Simple
-cabal-version:      >= 1.20
+cabal-version:      >= 1.18
 
 executable status-service
   main-is:            Main.hs
