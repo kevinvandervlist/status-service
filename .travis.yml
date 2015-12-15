@@ -1,8 +1,9 @@
 sudo: true
 
-language: haskell
+language: go
 
-ghc: 7.8
+go:
+ - 1.5
 
 before_install:
  - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:$PATH
@@ -11,7 +12,3 @@ script:
  - docker build -t status-service .
  - docker run --rm -v $(pwd):/build/ status-service
  - ls -alh
-
-cache:
-  directories:
-  - ~/.cabal
