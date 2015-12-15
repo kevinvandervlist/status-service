@@ -6,8 +6,21 @@ cabal-version:      >= 1.18
 executable status-service
   main-is:            Main.hs
   default-language:   Haskell2010
-  ghc-options:        -O2 -Wall -threaded
+  ghc-options:        -O2 -Wall -threaded -Werror
   build-depends:      base,
+                      bytestring,
+                      happstack-server,
+                      json,
+                      aeson,
+                      text-format,
+                      text
+
+Test-Suite test-status-service
+  type:               exitcode-stdio-1.0
+  default-language:   Haskell2010
+  main-is:            test.hs
+  build-depends:      base,
+                      bytestring,
                       happstack-server,
                       json,
                       HUnit,
@@ -16,4 +29,5 @@ executable status-service
                       tasty-quickcheck,
                       tasty-hunit,
                       aeson,
-                      text-format
+                      text-format,
+                      text

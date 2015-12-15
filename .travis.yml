@@ -13,8 +13,9 @@ install:
  - cabal install
 
 script:
- - make test
- - make build
+ - make
+ - make copy-here
+ - ls -alh
 
 cache:
   directories:

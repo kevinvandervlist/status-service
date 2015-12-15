@@ -6,12 +6,6 @@ import Text.JSON.Generic
 import Control.Monad
 import Service.URIMapper
 
-data Service = Service {
-    name :: String,
-    url :: String,
-    healthy :: Bool
-} deriving (Show, Data, Typeable)
-
 main :: IO ()
 main = do
     let services = ["foo", "bar"]
@@ -20,7 +14,6 @@ main = do
     print urls
     let a = "http://echo.jsontest.com/healthy/true"
     let b = "http://echo.jsontest.com/false/true"
-    let services = [Service "Foo" a False, Service "Foo" b True]
 
     let conf = nullConf{ port = 8080, timeout = 5 }
     simpleHTTP conf $ msum
