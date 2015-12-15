@@ -16,3 +16,6 @@ script:
  - make test
  - make build
 
+cache:
+  directories:
+  - ~/.cabal
