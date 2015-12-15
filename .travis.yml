@@ -1,4 +1,4 @@
-sudo: false
+sudo: true
 
 language: haskell
 
@@ -7,14 +7,9 @@ ghc: 7.8
 before_install:
  - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:$PATH
 
-install:
- - cabal --version
- - ghc --version
- - cabal install --only-dependencies --enable-tests
-
 script:
- - make
- - make copy-here
+ - docker build -t status-service .
+ - docker run --rm -v $(pwd):/build/ status-service
  - ls -alh
 
 cache:

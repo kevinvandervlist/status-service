@@ -3,6 +3,10 @@ default: build-and-test
 build-and-test:
 	cabal configure --enable-tests && cabal build && cabal test
 
+build-and-test-container:
+	docker build -t status-service
+	docker run --rm -v $(shell pwd):/source/ status-service
+
 run:
 	runhaskell Main.hs
 
