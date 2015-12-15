@@ -9,6 +9,8 @@ health_tests = testGroup "Health Unit tests"
        "" Down (parseServiceState "down")
     , testCase "Should be able to parse a 'up' service state" $ assertEqual
        "" Up (parseServiceState "up")
+    , testCase "Should be able to parse an 'unknown' service state" $ assertEqual
+       "" Unknown (parseServiceState "xyz")
     , testCase "Should be able to parse a singular service up" $ assertEqual
       ""
       (Just $ ServiceHealth "Foo" Up "1.0.0" "myhostname" 1257894000 [])
@@ -38,6 +40,7 @@ serviceDown = "{ \
      \ \"timestamp\":1257894001, \
      \ \"dependencies\":[] \
      \}"
+
 --
 --  {
 --     "servicename":"MyMicroService",

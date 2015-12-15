@@ -10,7 +10,7 @@ import Control.Applicative ((<$>), (<*>))
 import Control.Monad (liftM)
 import qualified Data.ByteString.Lazy.Char8 as BS
 
-data ServiceState = Up | Down deriving (Show, Eq)
+data ServiceState = Up | Down | Unknown deriving (Show, Eq)
 
 data ServiceHealth = ServiceHealth {
     servicename :: String,
@@ -35,7 +35,7 @@ parseServiceState :: String -> ServiceState
 parseServiceState raw
     | "up" == l = Up
     | "down" == l = Down
-    | otherwise   = Down
+    | otherwise   = Unknown
     where l = map toLower raw
 
 serviceHealthFromJSON :: String -> Maybe ServiceHealth
