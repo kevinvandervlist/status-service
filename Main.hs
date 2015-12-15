@@ -4,6 +4,7 @@ module Main where
 import Happstack.Server
 import Text.JSON.Generic
 import Control.Monad
+import Service.URIMapper
 
 data Service = Service {
     name :: String,
@@ -15,9 +16,8 @@ main :: IO ()
 main = do
     let services = ["foo", "bar"]
     let base = "http://localhost/api/{}/health"
---    let urls = map (asBaseUrl base) services
---    print $ asBaseUrl base "abc"
---    print urls
+    let urls = asBaseUrls (base) services
+    print urls
     let a = "http://echo.jsontest.com/healthy/true"
     let b = "http://echo.jsontest.com/false/true"
     let services = [Service "Foo" a False, Service "Foo" b True]
