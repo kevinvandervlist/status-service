@@ -11,13 +11,11 @@ main = do
     let services = ["foo", "bar"]
     let base = "http://localhost/api/{}/health"
     let urls = asBaseUrls (base) services
-    print urls
-    let a = "http://echo.jsontest.com/healthy/true"
-    let b = "http://echo.jsontest.com/false/true"
 
     let conf = nullConf{ port = 8080, timeout = 5 }
     simpleHTTP conf $ msum
-                          [ dir "health" $ dir "all" $ ok $ toResponse (encodeJSON services)
+                          [ dir "list" $ dir "all" $ ok $ toResponse (encodeJSON urls)
+                          , dir "health" $ dir "all" $ ok $ toResponse (encodeJSON services)
                           , dir "hello" $ path $ \s -> ok (toResponse ("Hello " ++ s))
                           , seeOther "/hello" (toResponse "/hello")
                           ]

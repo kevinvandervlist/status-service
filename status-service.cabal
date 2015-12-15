@@ -6,7 +6,7 @@ cabal-version:      >= 1.18
 executable status-service
   main-is:            Main.hs
   default-language:   Haskell2010
-  ghc-options:        -O2 -Wall -threaded -Werror
+  ghc-options:        -O2 -Wall -threaded -Werror -fwarn-unused-binds
   build-depends:      base,
                       bytestring,
                       happstack-server,
