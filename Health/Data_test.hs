@@ -19,6 +19,12 @@ health_tests = testGroup "Health Unit tests"
       ""
       (Just $ ServiceHealth "Bar" Down "1.0.0" "myhostname" 1257894001 [])
       (serviceHealthFromJSON serviceDown)
+    , testCase "Should be able to parse a recursive service definition" $ assertEqual
+      ""
+      (Just $ ServiceHealth "Foo" Up "1.0.0" "myhostname" 1257894001 [
+        ServiceHealth "Bar" Down "1.0.0" "theirhostname" 1257894000 []
+      ])
+      (serviceHealthFromJSON recursiveServiceDefinition)
     ]
 
 serviceUp :: String
@@ -40,6 +46,22 @@ serviceDown = "{ \
      \ \"timestamp\":1257894001, \
      \ \"dependencies\":[] \
      \}"
+
+recursiveServiceDefinition :: String
+recursiveServiceDefinition = "{ \
+     \ \"servicename\":\"Foo\", \
+     \ \"state\":\"up\", \
+     \ \"version\":\"1.0.0\", \
+     \ \"hostname\":\"myhostname\", \
+     \ \"timestamp\":1257894001, \
+     \ \"dependencies\":[{ \
+          \ \"servicename\":\"Bar\", \
+          \ \"state\":\"down\", \
+          \ \"version\":\"1.0.0\", \
+          \ \"hostname\":\"theirhostname\", \
+          \ \"timestamp\":1257894000, \
+          \ \"dependencies\":[] \
+     \ }]}"
 
 --
 --  {
