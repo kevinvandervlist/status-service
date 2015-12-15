@@ -2,12 +2,10 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Health.Data where
 
-import Data.Typeable
 import Data.Data
 import Data.Char
-import Data.Aeson ((.:), (.:?), decode, FromJSON(..), Value(..))
-import Control.Applicative ((<$>), (<*>))
-import Control.Monad (liftM)
+import Data.Aeson ((.:), decode, FromJSON(..), Value(..))
+import Control.Monad (liftM, mzero)
 import qualified Data.ByteString.Lazy.Char8 as BS
 
 data ServiceState = Up | Down | Unknown deriving (Show, Eq, Data)
@@ -30,6 +28,7 @@ instance FromJSON ServiceHealth where
     (v .: "hostname")  <*>
     (v .: "timestamp")   <*>
     (v .: "dependencies")
+  parseJSON _ = mzero
 
 parseServiceState :: String -> ServiceState
 parseServiceState raw
