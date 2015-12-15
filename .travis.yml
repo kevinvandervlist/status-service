@@ -2,8 +2,11 @@ sudo: true
 
 language: go
 
+services:
+  - docker
+
 go:
- - 1.5
+ - 1.5.1
 
 before_install:
  - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:$PATH
