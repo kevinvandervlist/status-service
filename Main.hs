@@ -42,4 +42,4 @@ demoBar :: ServerPart Response
 demoBar = demoSVC "bar" bar
 
 demoBaz :: ServerPart Response
-demoBaz = demoSVC "baz" (ServiceHealth "Baz" Down "2.0.0" "gamma-host" 1234789400 [foo, bar])
+demoBaz = demoSVC "baz" (ServiceHealth "Baz" Up "2.0.0" "gamma-host" 1234789400 [foo, bar])
