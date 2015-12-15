@@ -10,7 +10,7 @@ before_install:
 install:
  - cabal --version
  - ghc --version
- - cabal install
+ - cabal install --only-dependencies --enable-tests
 
 script:
  - make

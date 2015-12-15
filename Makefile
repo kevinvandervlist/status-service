@@ -1,7 +1,7 @@
 default: build-and-test
 
 build-and-test:
-	cabal configure --enable-tests && cabal install --only-dependencies --enable-tests && cabal build && cabal test
+	cabal configure --enable-tests && cabal build && cabal test
 
 run:
 	runhaskell Main.hs
