@@ -15,4 +15,5 @@ executable status-service
                       tasty,
                       tasty-quickcheck,
                       tasty-hunit,
-                      aeson
+                      aeson,
+                      text-format
