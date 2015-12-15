@@ -1,4 +1,5 @@
 # status-service
+[![Build Status](https://travis-ci.org/kevinvandervlist/status-service.svg)](https://travis-ci.org/kevinvandervlist/status-service.svg)
 
 ## Setting up
 ```
