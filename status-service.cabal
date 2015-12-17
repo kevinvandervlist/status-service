@@ -13,7 +13,9 @@ executable status-service
                       json,
                       aeson,
                       text-format,
-                      text
+                      text,
+                      wreq,
+                      lens
 
 test-suite test-status-service
   type:               exitcode-stdio-1.0
@@ -30,4 +32,6 @@ test-suite test-status-service
                       tasty-hunit,
                       aeson,
                       text-format,
-                      text
+                      text,
+                      wreq,
+                      lens

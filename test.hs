@@ -6,7 +6,7 @@ import Data.List
 import Data.Ord
 
 import Health.Data_test
-import Service.URIMapper_test
+import Service.Unittests
 
 main = defaultMain tests
 
@@ -14,7 +14,7 @@ tests :: TestTree
 tests = testGroup "Tests"
     [ properties
     , health_tests
-    , urimapper_tests
+    , service_tests
     ]
 
 properties :: TestTree
