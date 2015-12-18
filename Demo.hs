@@ -8,6 +8,7 @@ import Health.Data
 import Data.ByteString.Char8 as C
 import Data.ByteString.Lazy.Char8 as L
 
+demo_endpoints :: ServerPartT IO Response
 demo_endpoints = msum [demoFoo, demoBar, demoBaz]
 
 -- /demo endpoint with demo data.
