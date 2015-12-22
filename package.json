@@ -1,0 +1,36 @@
+{
+  "name": "status-service",
+  "description": "...",
+  "version": "0.0.1",
+  "author": {
+    "name": "Your name",
+    "email": "your@email.com",
+    "url": "https://your.github.io"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/yourid/status-service.git"
+  },
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "gulp",
+    "test": "gulp test",
+    "run": "node dist/index.js"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-mocha": "^2.2.0",
+    "gulp-rimraf": "^0.2.0",
+    "gulp-tsc": "^1.1.4",
+    "gulp-tslint": "^4.2.1",
+    "mocha": "^2.3.4",
+    "power-assert": "^1.2.0",
+    "tslint": "^3.2.1",
+    "tslint-stylish": "^2.1.0-beta"
+  },
+  "dependencies": {
+    "rxjs": "^5.0.0-beta.0"
+  }
+}
