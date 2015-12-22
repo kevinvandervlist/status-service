@@ -23,7 +23,7 @@ function compileTypescript() {
 }
 
 gulp.task('clean', function () {
-    return gulp.src(['./dist/**/*', './testdist/**/*'], {read: false})
+    return gulp.src(['./dist/**/*', './testdist/**/*', './src/.gulp-tsc**', './gulp-tsc-tmp-*'], {read: false})
         .pipe(clean());
 });
 
@@ -63,5 +63,5 @@ gulp.task('watch', function() {
 });
 
 gulp.task('build', ['clean', 'lint', 'typescript', 'copy']);
-gulp.task('test', ['build', 'test-mocha']);
+gulp.task('test', ['build', 'test-mocha', 'clean']);
 gulp.task('default', ['build', 'test']);

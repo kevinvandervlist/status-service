@@ -11,10 +11,11 @@ export module Facade {
         Timestamp: string;
         Dependencies: [ServiceHealth];
     }
-    export function Observe(address: string) : Observable<ServiceHealth> {
+
+    export function Observe(address:string):Observable<ServiceHealth> {
         var opts = {};
-        var obs: Observable<ServiceHealth> = Observable.create(observer => {
-            request.get(address, opts, (error: any, response: any, body: any) => {
+        var obs:Observable<string> = Observable.create(observer => {
+            request.get(address, opts, (error:any, response:any, body:any) => {
                 if (error) {
                     observer.error(error);
                 } else {
@@ -23,6 +24,14 @@ export module Facade {
                 }
             });
         });
-        return obs;
+        return obs
+            .map(function (x:string):any {
+                return JSON.parse(x);
+            })
+            .map(function (json:any):ServiceHealth {
+                return <ServiceHealth> {
+                    ServiceName: json.servicename,
+                };
+            });
     }
 }
