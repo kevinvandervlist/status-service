@@ -7,7 +7,7 @@ var mocha = require('gulp-mocha');
 var tslint = require('gulp-tslint');
 var stylish = require('tslint-stylish');
 
-var targetLanguageLevel = 'es5';
+var targetLanguageLevel = 'es6';
 
 function compileTypescript() {
     return typescript({

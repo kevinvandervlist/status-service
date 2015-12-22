@@ -1,3 +1,3 @@
 /// <reference path="typings/tsd.d.ts"/>
 
-console.log("hello status-service");
+console.log('hello status-service');
