@@ -9,7 +9,7 @@ before_script:
   - npm install -g gulp tsd
   - tsd install
 
-script: gulp build
+script: gulp
 
 cache:
   directories:
