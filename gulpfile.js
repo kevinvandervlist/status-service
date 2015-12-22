@@ -39,7 +39,7 @@ gulp.task('test-mocha', function () {
 });
 
 gulp.task('lint', function () {
-    gulp.src(['src/**/*.ts', 'test/**/*.ts'])
+    gulp.src(['src/**/*.ts', 'test/**/*.ts', '!./src/typings/**'])
         .pipe(tslint())
         .pipe(tslint.report(stylish, {
             emitError: true,
@@ -58,6 +58,10 @@ gulp.task('typescript', function () {
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('build', ['clean', 'typescript', 'copy']);
+gulp.task('watch', function() {
+    gulp.watch(['test/**/*.ts'], ['test']);
+});
+
+gulp.task('build', ['clean', 'lint', 'typescript', 'copy']);
 gulp.task('test', ['build', 'test-mocha']);
 gulp.task('default', ['build', 'test']);
