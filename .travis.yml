@@ -5,6 +5,12 @@ sudo: false
 node_js:
   - "5.3.0"
 
+before_script:
+  - npm install -g gulp tsd
+  - tsd install
+
+script: gulp build
+
 cache:
   directories:
     - node_modules

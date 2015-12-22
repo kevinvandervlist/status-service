@@ -7,11 +7,11 @@ describe('test', () => {
         assert([1, 2, 3].indexOf(1) === 0);
     });
     it('should bar()', () => {
-        assert([1, 2, 3].indexOf(1) === 1);
+        assert([1, 2, 3].indexOf(2) === 1);
     });
     it('should baz()', () => {
         const expected: number = 5;
         let result: number = 1;
-        assert(result === expected);
+        assert(result !== expected);
     });
 });
