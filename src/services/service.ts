@@ -59,7 +59,9 @@ export class Service {
     }
 
     single():Observable<ServiceHealth> {
-        return this.observe().take(1);
+        var r = Math.floor(Math.random() * 5);
+        console.log("delay: " + r);
+        return this.observe().take(1).delay(r * 1000);
     }
 
     observe():Observable<ServiceHealth> {
