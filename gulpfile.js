@@ -59,7 +59,7 @@ gulp.task('typescript', function () {
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
     gulp.watch(['test/**/*.ts'], ['test']);
 });
 
