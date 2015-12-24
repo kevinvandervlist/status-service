@@ -39,7 +39,8 @@ gulp.task('test-mocha', function () {
 });
 
 gulp.task('lint', function () {
-    gulp.src(['src/**/*.ts', 'test/**/*.ts', '!./src/typings/**'])
+    // Don't lint tests, waste of time.
+    gulp.src(['src/**/*.ts', '!./src/typings/**'])
         .pipe(tslint())
         .pipe(tslint.report(stylish, {
             emitError: true,

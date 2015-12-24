@@ -39,6 +39,19 @@
     "radix": true,
     "semicolon": true,
     "triple-equals": [true, "allow-null-check"],
+    "typedef": [true,
+      "call-signature",
+      "parameter",
+      "property-declaration",
+      "member-variable-declaration"
+    ],
+    "typedef-whitespace": [false, {
+      "call-signature": "space",
+      "index-signature": "space",
+      "parameter": "space",
+      "property-declaration": "space",
+      "variable-declaration": "space"
+    }],
     "variable-name": false
   }
 }
