@@ -1,7 +1,7 @@
 /// <reference path="../typings/tsd.d.ts"/>
 import express = require("express");
 import {ServiceHealth,Service,AllServices} from "../services/service";
-import {ServerError} from "../util/http";
+import {ServerError} from "../util/server";
 
 export function Router():express.Router {
     var r:express.Router = express.Router();
