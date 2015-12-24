@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 export class ServerError {
     public message:string;
     public stacktrace:any;
@@ -9,7 +9,7 @@ export class ServerError {
     }
 
     toString():string {
-        return this.message + ':\n' + this.stacktrace;
+        return this.message + ":\n" + this.stacktrace;
 
     }
 }

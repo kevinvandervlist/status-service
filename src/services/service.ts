@@ -1,14 +1,14 @@
-'use strict';
-/// <reference path='../typings/tsd.d.ts' />
+"use strict";
+/// <reference path="../typings/tsd.d.ts" />
 
-import {Observable,AsyncSubject,Scheduler} from '@reactivex/rxjs';
-import * as request from 'request';
+import {Observable,AsyncSubject,Scheduler} from "@reactivex/rxjs";
+import * as request from "request";
 
 export function AllServices():Observable<Service> {
     return Observable.fromArray([
-        'foo',
-        'bar',
-        'baz'
+        "foo",
+        "bar",
+        "baz"
     ]).map((n:string) => {
         return new Service(n);
     });
@@ -23,7 +23,7 @@ export interface ServiceHealth {
 }
 
 function constructAddress(name:string):string {
-    return 'http://localhost:8080/demo/' + name + '/health';
+    return "http://localhost:8080/demo/" + name + "/health";
 }
 
 export class Service {
@@ -73,7 +73,7 @@ export class Service {
                     Version: json.version,
                     Hostname: json.hostname,
                     Timestamp: json.timestamp,
-                    Dependencies: ['foo', 'bar']
+                    Dependencies: ["foo", "bar"]
                 };
             });
     }
