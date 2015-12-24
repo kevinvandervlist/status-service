@@ -3,6 +3,7 @@ import express = require("express");
 import {ServiceHealth,Service,AllServices} from "../services/service";
 import {ServerError} from "../util/server";
 import {Observable} from "@reactivex/rxjs";
+import {InterweaveOperator} from "../../src/util/interweave";
 
 export function Router():express.Router {
     var r:express.Router = express.Router();
@@ -21,15 +22,16 @@ function allServiceState(req:express.Request, res:express.Response):void {
             return s.single();
         })
         .map((h:ServiceHealth) => {
-            return JSON.stringify(h) + ",\n";
+            return JSON.stringify(h);
         })
+        .lift(new InterweaveOperator(",\n"))
         .subscribe(
             (h:ServiceHealth) => {
                 res.write(h);
             },
             (e:any) => {
                 console.log(new ServerError(e).toString());
-                //res.status(500).send(new ServerError(e));
+                res.status(500).send(new ServerError(e));
             },
             () => {
                 res.write("]");

@@ -4,14 +4,14 @@ export class ServerError {
     public stacktrace:any;
 
     constructor(e:any) {
-        if(typeof e === "string") {
+        if (typeof e === "string") {
             this.message = e;
-        } else if(e.message) {
+        } else if (e.message) {
             this.message = e.message;
         } else {
             this.message = "No error message defined.";
         }
-        if(e.stack) {
+        if (e.stack) {
             this.stacktrace = e.stack;
         }
     }
@@ -25,7 +25,7 @@ export class ServerError {
     }
 
     toString():string {
-        if(this.stacktrace) {
+        if (this.stacktrace) {
             return this.message + ":\n" + this.stacktrace;
         } else {
             return this.message;
