@@ -1,6 +1,7 @@
 /// <reference path="typings/tsd.d.ts"/>
 import express = require("express");
 import * as health from "./routes/health";
+import * as graph from "./routes/graph";
 
 var port = 3000;
 
@@ -11,6 +12,7 @@ app.get("/", (req:express.Request, res:express.Response) => {
 });
 
 app.use("/health", health.Router());
+app.use("/graph", graph.Router());
 
 app.use((req:express.Request, res:express.Response) => {
     res.status(404).send("Url " + req.url + " not found.");

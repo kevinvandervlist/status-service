@@ -1,17 +1,29 @@
 "use strict";
 /// <reference path="../typings/tsd.d.ts" />
 
-import {Observable,AsyncSubject,Scheduler} from "@reactivex/rxjs";
+import {Observable,ConnectableObservable,Scheduler,Subscription} from "@reactivex/rxjs";
 import * as request from "request";
 
-export function AllServices():Observable<Service> {
-    return Observable.fromArray([
-        "foo",
-        "bar",
-        "baz"
-    ]).map((n:string) => {
-        return new Service(n);
-    });
+export class AllServices {
+    private services:ConnectableObservable<Service>;
+    private subscription:Subscription;
+
+    constructor() {
+        var svcs:Array<string> = [
+            "foo",
+            "bar",
+            "baz"
+        ];
+        // TODO: is this an acceptable caching strategy?
+        this.services = Observable.fromArray(svcs).map((n:string) => {
+            return new Service(n);
+        }).publishReplay(3);
+        this.subscription = this.services.connect();
+    }
+
+    public observe():Observable<Service> {
+        return this.services;
+    }
 }
 
 export interface ServiceHealth {
@@ -19,7 +31,7 @@ export interface ServiceHealth {
     Version: string;
     Hostname: string;
     Timestamp: string;
-    Dependencies: [string];
+    Dependencies: Array<string>;
 }
 
 function constructAddress(name:string):string {
@@ -28,21 +40,28 @@ function constructAddress(name:string):string {
 
 export class Service {
     state:Observable<any>;
+    address:string;
 
     constructor(private name:string, private interval?:number) {
-        if(! this.interval) {
-            this.interval = 5000;
+        console.log("New " + name);
+        if (!this.interval) {
+            this.interval = 500;
         }
 
-        var address = constructAddress(name);
+        this.address = constructAddress(name);
 
-        this.state = Observable.create((observer: any) => {
+        this.state = Observable.create((observer:any) => {
+            console.log("new create" + name);
             var f = () => {
                 if (observer.isUnsubscribed) {
+                    console.log("unsubscribed - a: " + name);
                     return;
                 }
-                request.get(address, {}, (error:any, response:any, body:any) => {
+                console.log("Getting: " + name);
+                request.get(this.address, {}, (error:any, response:any, body:any) => {
+                    console.log("resp: " + name);
                     if (observer.isUnsubscribed) {
+                        console.log("unsubscribed - b: " + name);
                         return;
                     }
                     if (error) {
@@ -59,9 +78,7 @@ export class Service {
     }
 
     single():Observable<ServiceHealth> {
-        var r = Math.floor(Math.random() * 5);
-        console.log("delay: " + r);
-        return this.observe().take(1).delay(r * 1000);
+        return this.observe().take(1);
     }
 
     observe():Observable<ServiceHealth> {

@@ -3,7 +3,7 @@ import express = require("express");
 import {ServiceHealth,Service,AllServices} from "../services/service";
 import {ServerError} from "../util/server";
 import {Observable} from "@reactivex/rxjs";
-import {InterweaveOperator} from "../../src/util/interweave";
+import {InterweaveOperator} from "../util/interweave";
 
 export function Router():express.Router {
     var r:express.Router = express.Router();
@@ -17,7 +17,8 @@ export function Router():express.Router {
 function allServiceState(req:express.Request, res:express.Response):void {
     res.setHeader("Transfer-Encoding", "chunked");
     res.write("[");
-    AllServices()
+    new AllServices()
+        .observe()
         .flatMap((s:Service) => {
             return s.single();
         })

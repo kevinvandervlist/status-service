@@ -10,7 +10,7 @@ export class InterweaveOperator<T, R> implements Operator<T, R> {
     }
 }
 
-class InterweaveSubscriber<T extends any> extends Subscriber<T> {
+class InterweaveSubscriber<T> extends Subscriber<T> {
     private prev:any = undefined;
     constructor(destination: Subscriber<T>, private divider:T) {
         super(destination);
