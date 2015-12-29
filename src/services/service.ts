@@ -72,12 +72,9 @@ export class Service {
         });
     }
 
-    private sourceObservable():Observable<any> {
-        if(!this.shared) {
+    private sharedObservable():Observable<any> {
+        if (!this.shared) {
             this.shared = this.src.share();
-            //var c:ConnectableObservable<any> = this.src.publish();
-            //this.shared = c;
-            //c.connect();
         }
         return this.shared;
     }
@@ -87,7 +84,8 @@ export class Service {
     }
 
     observe():Observable<ServiceHealth> {
-        return this.sourceObservable()
+        return this
+            .sharedObservable()
             .map(function (x:string):any {
                 return JSON.parse(x);
             })
