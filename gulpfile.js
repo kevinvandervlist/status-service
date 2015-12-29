@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var del = require('del');
 var typescript = require('gulp-tsc');
 var clean = require('gulp-rimraf');
 var mocha = require('gulp-mocha');
@@ -23,8 +24,7 @@ function compileTypescript() {
 }
 
 gulp.task('clean', function () {
-    return gulp.src(['./dist', './testdist', './src/.gulp-tsc**', './gulp-tsc-tmp-*', 'gulp-tsc-tmp-*'], {read: false})
-        .pipe(clean());
+    return del(['./dist/*', './testdist/*', './src/.gulp-tsc**', './gulp-tsc-tmp-*', 'gulp-tsc-tmp-*']);
 });
 
 gulp.task('test-mocha', function () {

@@ -39,29 +39,24 @@ function constructAddress(name:string):string {
 }
 
 export class Service {
-    state:Observable<any>;
+    src:Observable<any>;
+    shared:Observable<any>;
     address:string;
 
     constructor(private name:string, private interval?:number) {
-        console.log("New " + name);
         if (!this.interval) {
             this.interval = 500;
         }
 
         this.address = constructAddress(name);
 
-        this.state = Observable.create((observer:any) => {
-            console.log("new create" + name);
+        this.src = Observable.create((observer:any) => {
             var f = () => {
                 if (observer.isUnsubscribed) {
-                    console.log("unsubscribed - a: " + name);
                     return;
                 }
-                console.log("Getting: " + name);
                 request.get(this.address, {}, (error:any, response:any, body:any) => {
-                    console.log("resp: " + name);
                     if (observer.isUnsubscribed) {
-                        console.log("unsubscribed - b: " + name);
                         return;
                     }
                     if (error) {
@@ -77,12 +72,22 @@ export class Service {
         });
     }
 
+    private sourceObservable():Observable<any> {
+        if(!this.shared) {
+            this.shared = this.src.share();
+            //var c:ConnectableObservable<any> = this.src.publish();
+            //this.shared = c;
+            //c.connect();
+        }
+        return this.shared;
+    }
+
     single():Observable<ServiceHealth> {
         return this.observe().take(1);
     }
 
     observe():Observable<ServiceHealth> {
-        return this.state
+        return this.sourceObservable()
             .map(function (x:string):any {
                 return JSON.parse(x);
             })

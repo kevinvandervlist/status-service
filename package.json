@@ -20,6 +20,7 @@
     "start": "node dist/index.js"
   },
   "devDependencies": {
+    "del": "^2.2.0",
     "gulp": "^3.9.0",
     "gulp-mocha": "^2.2.0",
     "gulp-rimraf": "^0.2.0",
