@@ -7,12 +7,10 @@ var port = 3000;
 
 var app:express.Application = express();
 
-app.get("/", (req:express.Request, res:express.Response) => {
-    res.send("Hi");
-});
+app.use("/", express.static("webapp/dist/prod/"));
 
-app.use("/health", health.Router());
-app.use("/graph", graph.Router());
+app.use("/api/health", health.Router());
+app.use("/api/graph", graph.Router());
 
 app.use((req:express.Request, res:express.Response) => {
     res.status(404).send("Url " + req.url + " not found.");

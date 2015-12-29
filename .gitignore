@@ -8,3 +8,8 @@ src/typings
 
 dist/*
 testdist/*
+
+webapp/dist/*
+webapp/tmp/*
+webapp/tools/typings/*
+

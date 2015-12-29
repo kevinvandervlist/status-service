@@ -8,12 +8,10 @@ export class AllServices {
     private services:ConnectableObservable<Service>;
     private subscription:Subscription;
 
-    constructor() {
-        var svcs:Array<string> = [
-            "foo",
-            "bar",
-            "baz"
-        ];
+    constructor(svcs?:Array<string>) {
+        if(!svcs) {
+            svcs = ["foo","bar","baz"];
+        }
         // TODO: is this an acceptable caching strategy?
         this.services = Observable.fromArray(svcs).map((n:string) => {
             return new Service(n);
