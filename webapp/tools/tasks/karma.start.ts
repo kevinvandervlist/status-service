@@ -1,10 +1,10 @@
-import * as karma from 'karma';
-import {join} from 'path';
+import * as karma from "karma";
+import {join} from "path";
 
-export = function karmaStart() {
-  return function (done) {
+export = function karmaStart():Function {
+  return function (done:any):void {
     new (<any>karma).Server({
-      configFile: join(process.cwd(), 'karma.conf.js'),
+      configFile: join(process.cwd(), "karma.conf.js"),
       singleRun: true
     }).start(done);
   };

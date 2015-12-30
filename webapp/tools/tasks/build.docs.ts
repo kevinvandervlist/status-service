@@ -1,23 +1,23 @@
-import {join} from 'path';
-import {APP_SRC, APP_TITLE, DOCS_DEST} from '../config';
+import {join} from "path";
+import {APP_SRC, APP_TITLE, DOCS_DEST} from "../config";
 
-export = function buildDocs(gulp, plugins, option) {
-  return function() {
+export = function buildDocs(gulp:any, plugins:any, option:any):Function {
+  return function():void {
 
     let src = [
-                join(APP_SRC, '**/*.ts'),
-                '!' + join(APP_SRC, '**/*_spec.ts')
+                join(APP_SRC, "**/*.ts"),
+                "!" + join(APP_SRC, "**/*_spec.ts")
               ];
 
     return gulp.src(src)
       .pipe(plugins.typedoc({
         // TypeScript options (see typescript docs)
-        module: 'commonjs',
-        target: 'es5',
+        module: "commonjs",
+        target: "es5",
         includeDeclarations: true,
         // Output options (see typedoc docs)
         out: DOCS_DEST,
-        json: join(DOCS_DEST , 'data/docs.json' ),
+        json: join(DOCS_DEST , "data/docs.json" ),
         name: APP_TITLE,
         ignoreCompilerErrors: false,
         experimentalDecorators: true,

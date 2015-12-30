@@ -1,18 +1,18 @@
-import {join} from 'path';
-import {APP_SRC, APP_DEST} from '../config';
-import {templateLocals, tsProjectFn} from '../utils';
+import {join} from "path";
+import {APP_SRC, APP_DEST} from "../config";
+import {templateLocals, tsProjectFn} from "../utils";
 
-export = function buildJSDev(gulp, plugins) {
+export = function buildJSDev(gulp:any, plugins:any):Function {
   let tsProject = tsProjectFn(plugins);
-  return function () {
+  return function ():void {
     let src = [
-                join(APP_SRC, '**/*.ts'),
-                '!' + join(APP_SRC, '**/*_spec.ts')
+                join(APP_SRC, "**/*.ts"),
+                "!" + join(APP_SRC, "**/*_spec.ts")
               ];
 
     let result = gulp.src(src)
       .pipe(plugins.plumber())
-      // Won't be required for non-production build after the change
+      // Won"t be required for non-production build after the change
       .pipe(plugins.inlineNg2Template({ base: APP_SRC }))
       .pipe(plugins.sourcemaps.init())
       .pipe(plugins.typescript(tsProject));

@@ -9,13 +9,13 @@ export class AllServices {
     private subscription:Subscription;
 
     constructor(svcs?:Array<string>) {
-        if(!svcs) {
-            svcs = ["foo","bar","baz"];
+        if (!svcs) {
+            svcs = ["foo", "bar", "baz", "blabla"];
         }
         // TODO: is this an acceptable caching strategy?
         this.services = Observable.fromArray(svcs).map((n:string) => {
             return new Service(n);
-        }).publishReplay(3);
+        }).publishReplay(svcs.length);
         this.subscription = this.services.connect();
     }
 
@@ -27,6 +27,7 @@ export class AllServices {
 export interface ServiceHealth {
     ServiceName :string;
     Version: string;
+    State: string;
     Hostname: string;
     Timestamp: string;
     Dependencies: Array<string>;
@@ -77,6 +78,17 @@ export class Service {
         return this.shared;
     }
 
+    private down():ServiceHealth {
+        return <ServiceHealth> {
+            ServiceName: this.name,
+            Version: "unknown",
+            State: "down",
+            Hostname: "unknown",
+            Timestamp: String(new Date().getTime()),
+            Dependencies: []
+        };
+    }
+
     single():Observable<ServiceHealth> {
         return this.observe().take(1);
     }
@@ -91,10 +103,14 @@ export class Service {
                 return <ServiceHealth> {
                     ServiceName: json.servicename,
                     Version: json.version,
+                    State: "ok",
                     Hostname: json.hostname,
                     Timestamp: json.timestamp,
                     Dependencies: ["foo", "bar"]
                 };
+            }).catch((e:any) => {
+                console.log(e);
+                return Observable.of(this.down());
             });
     }
 }

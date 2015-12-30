@@ -11,5 +11,6 @@ testdist/*
 
 webapp/dist/*
 webapp/tmp/*
+webapp/test/*
 webapp/tools/typings/*
 

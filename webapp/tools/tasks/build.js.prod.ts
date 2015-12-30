@@ -1,13 +1,13 @@
-import {join} from 'path';
-import {APP_SRC, TMP_DIR} from '../config';
-import {templateLocals, tsProjectFn} from '../utils';
+import {join} from "path";
+import {APP_SRC, TMP_DIR} from "../config";
+import {templateLocals, tsProjectFn} from "../utils";
 
-export = function buildJSDev(gulp, plugins) {
-  return function () {
+export = function buildJSDev(gulp:any, plugins:any):Function {
+  return function ():void {
     let tsProject = tsProjectFn(plugins);
     let src = [
-                join(APP_SRC, '**/*.ts'),
-                '!' + join(APP_SRC, '**/*_spec.ts')
+                join(APP_SRC, "**/*.ts"),
+                "!" + join(APP_SRC, "**/*_spec.ts")
               ];
 
     let result = gulp.src(src)

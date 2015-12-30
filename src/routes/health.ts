@@ -15,8 +15,6 @@ export function Router():express.Router {
 }
 
 function allServiceState(req:express.Request, res:express.Response):void {
-    res.setHeader("Transfer-Encoding", "chunked");
-    res.write("[");
     new AllServices()
         .observe()
         .flatMap((s:Service) => {
@@ -28,11 +26,19 @@ function allServiceState(req:express.Request, res:express.Response):void {
         .lift(new InterweaveOperator(",\n"))
         .subscribe(
             (h:ServiceHealth) => {
+                if (!res.headersSent) {
+                    res.setHeader("Transfer-Encoding", "chunked");
+                    res.write("[");
+                }
                 res.write(h);
             },
             (e:any) => {
-                console.log(new ServerError(e).toString());
-                res.status(500).send(new ServerError(e));
+                if (!res.headersSent) {
+                    res = res.status(500);
+                }
+                var err:ServerError = new ServerError(e);
+                console.log(err.toString());
+                res.send(err);
             },
             () => {
                 res.write("]");
