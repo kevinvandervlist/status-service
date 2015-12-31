@@ -35,11 +35,14 @@ export class SingleServiceHealthCmp implements OnDestroy {
         this.name = params.get("name");
 
         this.subscription = Observable
-            .interval(refresh_interval)
-            .flatMap(() => {
-                return health.one(this.name);
-            })
-            .startWith(health.one(this.name))
+            .merge(
+                health.one(this.name),
+                Observable
+                    .interval(refresh_interval)
+                    .flatMap(() => {
+                        return health.one(this.name);
+                    })
+            )
             .do(() => {
                 this.updated();
             })
@@ -57,7 +60,7 @@ export class SingleServiceHealthCmp implements OnDestroy {
     }
 
     ngOnDestroy():any {
-        if(this.subscription && ! this.subscription.isUnsubscribed) {
+        if (this.subscription && !this.subscription.isUnsubscribed) {
             this.subscription.unsubscribe();
         }
         return undefined;
