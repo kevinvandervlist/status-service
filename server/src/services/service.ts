@@ -34,7 +34,7 @@ export interface ServiceHealth {
 }
 
 function constructAddress(name:string):string {
-    return "http://localhost:8080/demo/" + name + "/health";
+    return "http://localhost:8080/demo/" + name.toLowerCase() + "/health";
 }
 
 export class Service {
