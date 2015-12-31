@@ -6,7 +6,6 @@ import {
 // import {HTTP_PROVIDERS} from "angular2/http";
 
 import {HomeCmp} from "../home/home";
-import {AboutCmp} from "../about/about";
 import {HealthOverviewCmp} from "../health/health_overview";
 import {SingleServiceHealthCmp} from "../health/single_service_health";
 import {GraphCmp} from "../graph/graph";
