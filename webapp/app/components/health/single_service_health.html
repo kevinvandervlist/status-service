@@ -1,22 +1,50 @@
-import {Component} from "angular2/core";
-import {HealthService} from "../../services/health_service";
-import {Http, HTTP_PROVIDERS} from "angular2/http";
-import {Response} from "angular2/http";
-import {ServiceHealth} from "../../types/service_health";
-import {Observable} from "rxjs/Observable";
-
-@Component({
-    selector: "health-overview",
-    providers: [HealthService],
-    viewProviders: [HTTP_PROVIDERS],
-    templateUrl: "./components/health/single_service_health.html"
-})
-export class SingleServiceHealthCmp {
-    state:Observable<ServiceHealth>;
-    hasError:boolean;
-
-    constructor(public health:HealthService) {
-        this.hasError = false;
-        health.one("foo").subscribe();
-    }
-}
+<div>
+    <p>Service details of {{name}}. Last updated: {{last_update}}</p>
+</div>
+<div [hidden]="!hasError">
+    <p>Sorry, an error occurred while retrieving service data.</p>
+</div>
+<div [hidden]="hasError">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                Service name
+            </div>
+            <div class="col-md-2">
+                Version
+            </div>
+            <div class="col-md-2">
+                Status
+            </div>
+            <div class="col-md-2">
+                Hostname
+            </div>
+            <div class="col-md-2">
+                Timestamp
+            </div>
+            <div class="col-md-2">
+                Dependencies
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                {{state.ServiceName}}
+            </div>
+            <div class="col-md-2">
+                {{state.Version}}
+            </div>
+            <div class="col-md-2">
+                {{state.State}}
+            </div>
+            <div class="col-md-2">
+                {{state.Hostname}}
+            </div>
+            <div class="col-md-2">
+                {{state.Timestamp}}
+            </div>
+            <div class="col-md-2">
+                {{state.Dependencies}}
+            </div>
+        </div>
+    </div>
+</div>

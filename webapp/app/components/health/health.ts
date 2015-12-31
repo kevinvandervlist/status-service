@@ -1,6 +1,7 @@
 import {Component, View} from "angular2/core";
 import {ServiceHealth} from "../../types/service_health";
 import {NgClass} from "angular2/common";
+import {RouterLink} from "angular2/router";
 
 @Component({
     selector: "health",
@@ -8,7 +9,7 @@ import {NgClass} from "angular2/common";
 })
 @View({
     templateUrl: "./components/health/health.html",
-    directives: [NgClass]
+    directives: [NgClass,RouterLink]
 })
 export class HealthCmp {
     state:ServiceHealth;

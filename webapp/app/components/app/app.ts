@@ -8,6 +8,8 @@ import {
 import {HomeCmp} from "../home/home";
 import {AboutCmp} from "../about/about";
 import {HealthOverviewCmp} from "../health/health_overview";
+import {SingleServiceHealthCmp} from "../health/single_service_health";
+import {GraphCmp} from "../graph/graph";
 
 @Component({
   selector: "app",
@@ -20,6 +22,8 @@ import {HealthOverviewCmp} from "../health/health_overview";
 @RouteConfig([
   { path: "/", component: HomeCmp, as: "Home" },
   { path: "/health", component: HealthOverviewCmp, as: "Health" },
+  { path: "/health/:name", component: SingleServiceHealthCmp, as: "SingleHealth" },
+  { path: "/graph", component: GraphCmp, as: "Graph"},
   { path: "/about", component: AboutCmp, as: "About" }
 ])
 export class AppCmp {}

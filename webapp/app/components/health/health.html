@@ -1,5 +1,5 @@
 <div class="col-md-2">
-    <span [ngClass]="{ 'label-danger': !isHealthy(), 'label-success': isHealthy()}">{{name()}}</span>
+    <span [ngClass]="{ 'label-danger': !isHealthy(), 'label-success': isHealthy()}"><a [routerLink]="['/SingleHealth', {name: name()}]">{{name()}}</a></span>
 </div>
 <div class="col-md-2">
     <span [ngClass]="{ 'label-danger': !isHealthy(), 'label-success': isHealthy()}">{{version()}}</span>

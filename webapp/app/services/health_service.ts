@@ -7,19 +7,27 @@ import {HealthCmp} from "../components/health/health";
 
 @Injectable()
 export class HealthService {
+    base:string;
+
     constructor(public http:Http) {
+        this.base = "/api/health/";
     }
 
     all():Observable<ServiceHealth> {
-        return this.one("all");
+        return this.transform(this
+            .doRequest(this.base + "all")
+            .flatMap((x:any) => Observable.fromArray(x)));
     }
 
     one(name:string):Observable<ServiceHealth> {
-        var raw:Observable<any> = this.http
-            .get("/api/health/" + name)
+        return this.transform(this
+            .doRequest(this.base + name));
+    }
+
+    private doRequest(endpoint:string):Observable<any> {
+        return this.http
+            .get(endpoint)
             .map((res:Response) => res.json())
-            .flatMap((x:any) => Observable.fromArray(x));
-        return this.transform(raw);
     }
 
     private transform(obs:Observable<any>):Observable<ServiceHealth> {
