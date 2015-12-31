@@ -6,6 +6,7 @@ import {ServiceHealth} from "../../types/service_health";
 import {HealthCmp} from "./health";
 
 @Component({
+    directives: [HealthCmp],
     selector: "health-overview",
     providers: [HealthService],
     viewProviders: [HTTP_PROVIDERS],
@@ -21,7 +22,6 @@ export class HealthOverviewCmp {
             .toArray().subscribe(
             (svcs:Array<HealthCmp>) => {
                 this.states = svcs;
-                console.log(this.states);
             },
             (e:any) => {
                 console.error(e);

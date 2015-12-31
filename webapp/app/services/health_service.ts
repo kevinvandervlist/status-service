@@ -10,11 +10,11 @@ export class HealthService {
     constructor(public http:Http) {
     }
 
-    all():Observable<HealthCmp> {
+    all():Observable<ServiceHealth> {
         return this.one("all");
     }
 
-    one(name:string):Observable<HealthCmp> {
+    one(name:string):Observable<ServiceHealth> {
         var raw:Observable<any> = this.http
             .get("/api/health/" + name)
             .map((res:Response) => res.json())
@@ -22,16 +22,16 @@ export class HealthService {
         return this.transform(raw);
     }
 
-    private transform(obs:Observable<any>):Observable<HealthCmp> {
+    private transform(obs:Observable<any>):Observable<ServiceHealth> {
         // TODO: let
         return obs.map((x:any) => {
-            return new HealthCmp(<ServiceHealth> {
+            return <ServiceHealth> {
                 ServiceName: x.ServiceName,
                 Hostname: x.Hostname,
                 Version: x.Version,
                 Timestamp: x.Timestamp,
                 Dependencies: x.Dependencies,
-            });
+            };
         });
     }
 }
