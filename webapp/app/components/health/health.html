@@ -1,3 +1,9 @@
-<div class="healthrow">
-    <h1>{{state.ServiceName}}</h1>
+<div class="col-md-2">
+    <span [ngClass]="{ 'label-danger': !isHealthy(), 'label-success': isHealthy()}">{{name()}}</span>
+</div>
+<div class="col-md-2">
+    <span [ngClass]="{ 'label-danger': !isHealthy(), 'label-success': isHealthy()}">{{version()}}</span>
+</div>
+<div class="col-md-2">
+    <span [ngClass]="{ 'label-danger': !isHealthy(), 'label-success': isHealthy()}">{{status()}}</span>
 </div>

@@ -28,6 +28,7 @@ export class HealthService {
             return <ServiceHealth> {
                 ServiceName: x.ServiceName,
                 Hostname: x.Hostname,
+                State: x.State,
                 Version: x.Version,
                 Timestamp: x.Timestamp,
                 Dependencies: x.Dependencies,
