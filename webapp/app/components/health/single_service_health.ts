@@ -6,6 +6,7 @@ import {ServiceHealth} from "../../types/service_health";
 import {Observable} from "rxjs/Observable";
 import {RouteParams} from "angular2/router";
 import {Subscription} from "rxjs/Subscription";
+import {OnDestroy} from "angular2/core";
 
 @Component({
     selector: "health-overview",
@@ -13,7 +14,7 @@ import {Subscription} from "rxjs/Subscription";
     viewProviders: [HTTP_PROVIDERS],
     templateUrl: "./components/health/single_service_health.html"
 })
-export class SingleServiceHealthCmp {
+export class SingleServiceHealthCmp implements OnDestroy {
     state:ServiceHealth;
     last_update:string;
     name:string;
@@ -21,7 +22,7 @@ export class SingleServiceHealthCmp {
     subscription:Subscription<ServiceHealth>;
 
     constructor(public health:HealthService, params:RouteParams) {
-        let refresh_interval = 1000;
+        let refresh_interval = 5000;
         this.state = <ServiceHealth> {
             ServiceName: "unknown",
             Version: "unknown",
@@ -53,6 +54,13 @@ export class SingleServiceHealthCmp {
                     this.hasError = true;
                 }
             );
+    }
+
+    ngOnDestroy():any {
+        if(this.subscription && ! this.subscription.isUnsubscribed) {
+            this.subscription.unsubscribe();
+        }
+        return undefined;
     }
 
     private updated():void {
