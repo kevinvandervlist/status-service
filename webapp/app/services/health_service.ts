@@ -3,16 +3,18 @@ import {Injectable} from "angular2/core";
 import {Observable} from "rxjs/Observable";
 import {ServiceHealth} from "../types/service_health";
 import {Response} from "angular2/http";
+import {HealthCmp} from "../components/health/health";
+
 @Injectable()
 export class HealthService {
     constructor(public http:Http) {
     }
 
-    all():Observable<ServiceHealth> {
+    all():Observable<HealthCmp> {
         return this.one("all");
     }
 
-    one(name:string):Observable<ServiceHealth> {
+    one(name:string):Observable<HealthCmp> {
         var raw:Observable<any> = this.http
             .get("/api/health/" + name)
             .map((res:Response) => res.json())
@@ -20,16 +22,16 @@ export class HealthService {
         return this.transform(raw);
     }
 
-    private transform(obs:Observable<any>):Observable<ServiceHealth> {
+    private transform(obs:Observable<any>):Observable<HealthCmp> {
         // TODO: let
         return obs.map((x:any) => {
-            return <ServiceHealth> {
+            return new HealthCmp(<ServiceHealth> {
                 ServiceName: x.ServiceName,
                 Hostname: x.Hostname,
                 Version: x.Version,
                 Timestamp: x.Timestamp,
                 Dependencies: x.Dependencies,
-            };
+            });
         });
     }
 }

@@ -7,7 +7,7 @@ import {
 
 import {HomeCmp} from "../home/home";
 import {AboutCmp} from "../about/about";
-import {HealthCmp} from "../health/health";
+import {HealthOverviewCmp} from "../health/health_overview";
 
 @Component({
   selector: "app",
@@ -19,7 +19,7 @@ import {HealthCmp} from "../health/health";
 })
 @RouteConfig([
   { path: "/", component: HomeCmp, as: "Home" },
-  { path: "/health", component: HealthCmp, as: "Health" },
+  { path: "/health", component: HealthOverviewCmp, as: "Health" },
   { path: "/about", component: AboutCmp, as: "About" }
 ])
 export class AppCmp {}

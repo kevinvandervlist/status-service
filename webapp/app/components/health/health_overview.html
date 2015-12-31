@@ -1,0 +1,24 @@
+<p>
+    Health of services:
+</p>
+
+<div [hidden]="!hasError">
+    <p>Sorry, an error occurred while retrieving service data.</p>
+</div>
+
+<div [hidden]="hasError">
+    <health *ngFor="#h of states">{{h}}</health>
+    <!--<ul>-->
+        <!--<li *ngFor="#s of states">{{s.ServiceName}}:-->
+            <!--<div>-->
+                <!--Checked host <span class="hostname">{{s.Hostname}}</span> at {{s.Timestamp}}, with version {{s.Version}}-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--Dependencies:-->
+                <!--<ul>-->
+                    <!--<li *ngFor="#d of s.Dependencies">{{d}}</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</li>-->
+    <!--</ul>-->
+</div>
