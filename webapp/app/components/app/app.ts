@@ -23,7 +23,6 @@ import {GraphCmp} from "../graph/graph";
   { path: "/", component: HomeCmp, as: "Home" },
   { path: "/health", component: HealthOverviewCmp, as: "Health" },
   { path: "/health/:name", component: SingleServiceHealthCmp, as: "SingleHealth" },
-  { path: "/graph", component: GraphCmp, as: "Graph"},
-  { path: "/about", component: AboutCmp, as: "About" }
+  { path: "/graph", component: GraphCmp, as: "Graph"}
 ])
 export class AppCmp {}

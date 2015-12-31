@@ -26,7 +26,7 @@
                 Dependencies
             </div>
         </div>
-        <div class="row">
+        <div class="row" [ngClass]="{ 'label-danger': !isHealthy(), 'label-success': isHealthy()}">
             <div class="col-md-2">
                 {{state.ServiceName}}
             </div>

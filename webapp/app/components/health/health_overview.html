@@ -1,7 +1,6 @@
 <p>
-    Health of services:
+    Health of all services. Last updated: {{last_update}}.
 </p>
-
 <div [hidden]="!hasError">
     <p>Sorry, an error occurred while retrieving service data.</p>
 </div>
@@ -20,22 +19,7 @@
             </div>
         </div>
         <div class="row" *ngFor="#i of states">
-            <!--{{i.ServiceName}}-->
             <health [state]="i"></health>
-            <!--<health></health>-->
         </div>
     </div>
-    <!--<ul>-->
-    <!--<li *ngFor="#s of states">{{s.ServiceName}}:-->
-    <!--<div>-->
-    <!--Checked host <span class="hostname">{{s.Hostname}}</span> at {{s.Timestamp}}, with version {{s.Version}}-->
-    <!--</div>-->
-    <!--<div>-->
-    <!--Dependencies:-->
-    <!--<ul>-->
-    <!--<li *ngFor="#d of s.Dependencies">{{d}}</li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</li>-->
-    <!--</ul>-->
 </div>

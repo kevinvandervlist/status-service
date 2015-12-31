@@ -4,6 +4,9 @@ import {Http, HTTP_PROVIDERS} from "angular2/http";
 import {Response} from "angular2/http";
 import {ServiceHealth} from "../../types/service_health";
 import {HealthCmp} from "./health";
+import {Observable} from "rxjs/Observable";
+import {Subscription} from "rxjs/Subscription";
+import {BaseHealthCmp} from "./base_health";
 
 @Component({
     directives: [HealthCmp],
@@ -12,21 +15,25 @@ import {HealthCmp} from "./health";
     viewProviders: [HTTP_PROVIDERS],
     templateUrl: "./components/health/health_overview.html"
 })
-export class HealthOverviewCmp {
-    states:Array<HealthCmp> = [];
+export class HealthOverviewCmp extends BaseHealthCmp {
+    states:Array<ServiceHealth> = [];
     hasError:boolean;
 
     constructor(public health:HealthService) {
+        super(10000);
         this.hasError = false;
-        health.all()
-            .toArray().subscribe(
-            (svcs:Array<HealthCmp>) => {
-                this.states = svcs;
-            },
-            (e:any) => {
-                console.error(e);
-                this.hasError = true;
-            }
-        );
+        let provider = () => {
+            return health.all().toArray();
+        };
+        this.subscription = this.poll(provider)
+            .subscribe(
+                (svcs:Array<ServiceHealth>) => {
+                    this.states = svcs;
+                },
+                (e:any) => {
+                    console.error(e);
+                    this.hasError = true;
+                }
+            );
     }
 }

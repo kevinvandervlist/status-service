@@ -6,7 +6,7 @@ import {ServiceHealth} from "../../types/service_health";
 import {Observable} from "rxjs/Observable";
 import {RouteParams} from "angular2/router";
 import {Subscription} from "rxjs/Subscription";
-import {OnDestroy} from "angular2/core";
+import {BaseHealthCmp} from "./base_health";
 
 @Component({
     selector: "health-overview",
@@ -14,7 +14,7 @@ import {OnDestroy} from "angular2/core";
     viewProviders: [HTTP_PROVIDERS],
     templateUrl: "./components/health/single_service_health.html"
 })
-export class SingleServiceHealthCmp implements OnDestroy {
+export class SingleServiceHealthCmp extends BaseHealthCmp {
     state:ServiceHealth;
     last_update:string;
     name:string;
@@ -22,7 +22,7 @@ export class SingleServiceHealthCmp implements OnDestroy {
     subscription:Subscription<ServiceHealth>;
 
     constructor(public health:HealthService, params:RouteParams) {
-        let refresh_interval = 5000;
+        super(5000);
         this.state = <ServiceHealth> {
             ServiceName: "unknown",
             Version: "unknown",
@@ -34,18 +34,11 @@ export class SingleServiceHealthCmp implements OnDestroy {
         this.hasError = false;
         this.name = params.get("name");
 
-        this.subscription = Observable
-            .merge(
-                health.one(this.name),
-                Observable
-                    .interval(refresh_interval)
-                    .flatMap(() => {
-                        return health.one(this.name);
-                    })
-            )
-            .do(() => {
-                this.updated();
-            })
+        var provider = () => {
+            return health.one(this.name);
+        };
+
+        this.subscription = this.poll(provider)
             .subscribe(
                 (n:ServiceHealth) => {
                     this.hasError = false;
@@ -59,15 +52,7 @@ export class SingleServiceHealthCmp implements OnDestroy {
             );
     }
 
-    ngOnDestroy():any {
-        if (this.subscription && !this.subscription.isUnsubscribed) {
-            this.subscription.unsubscribe();
-        }
-        return undefined;
-    }
-
-    private updated():void {
-        var d = new Date();
-        this.last_update = d.toLocaleDateString() + " " + d.toLocaleTimeString();
+    isHealthy():boolean {
+        return this.state.State === "ok";
     }
 }

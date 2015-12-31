@@ -1,9 +1,11 @@
-<div class="col-md-2">
-    <span [ngClass]="{ 'label-danger': !isHealthy(), 'label-success': isHealthy()}"><a [routerLink]="['SingleHealth', {name: name()}]">{{name()}}</a></span>
-</div>
-<div class="col-md-2">
-    <span [ngClass]="{ 'label-danger': !isHealthy(), 'label-success': isHealthy()}">{{version()}}</span>
-</div>
-<div class="col-md-2">
-    <span [ngClass]="{ 'label-danger': !isHealthy(), 'label-success': isHealthy()}">{{status()}}</span>
+<div>
+    <div [ngClass]="{ 'label-danger': !isHealthy(), 'label-success': isHealthy()}" class="col-md-2">
+        <span><a [routerLink]="['SingleHealth', {name: name()}]">{{name()}}</a></span>
+    </div>
+    <div [ngClass]="{ 'label-danger': !isHealthy(), 'label-success': isHealthy()}" class="col-md-2">
+        <span>{{version()}}</span>
+    </div>
+    <div [ngClass]="{ 'label-danger': !isHealthy(), 'label-success': isHealthy()}" class="col-md-2">
+        <span>{{status()}}</span>
+    </div>
 </div>
