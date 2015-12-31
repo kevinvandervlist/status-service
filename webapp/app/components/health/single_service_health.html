@@ -1,0 +1,22 @@
+import {Component} from "angular2/core";
+import {HealthService} from "../../services/health_service";
+import {Http, HTTP_PROVIDERS} from "angular2/http";
+import {Response} from "angular2/http";
+import {ServiceHealth} from "../../types/service_health";
+import {Observable} from "rxjs/Observable";
+
+@Component({
+    selector: "health-overview",
+    providers: [HealthService],
+    viewProviders: [HTTP_PROVIDERS],
+    templateUrl: "./components/health/single_service_health.html"
+})
+export class SingleServiceHealthCmp {
+    state:Observable<ServiceHealth>;
+    hasError:boolean;
+
+    constructor(public health:HealthService) {
+        this.hasError = false;
+        health.one("foo").subscribe();
+    }
+}
