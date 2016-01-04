@@ -1,5 +1,10 @@
 "use strict";
-import {Observable,Operator,Subscriber} from "@reactivex/rxjs";
+import {Observable,Subscriber} from "@reactivex/rxjs";
+
+// TODO: import me later with next Rx release
+export interface Operator<T, R> {
+    call<T, R>(subscriber: Subscriber<R>): Subscriber<T>;
+}
 
 export class InterweaveOperator<T, R> implements Operator<T, R> {
     constructor(private divider:T) {
