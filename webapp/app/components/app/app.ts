@@ -3,7 +3,6 @@ import {
   RouteConfig,
   ROUTER_DIRECTIVES
 } from "angular2/router";
-// import {HTTP_PROVIDERS} from "angular2/http";
 
 import {HomeCmp} from "../home/home";
 import {HealthOverviewCmp} from "../health/health_overview";

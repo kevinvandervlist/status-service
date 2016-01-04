@@ -1,8 +1,8 @@
-import {OnDestroy} from "angular2/core";
-import {Subscription} from "rxjs/Subscription";
+import {OnDestroy} from "../../node_modules/angular2/core.d";
 import {Observable} from "rxjs/Observable";
+import {Subscription} from "rxjs/Subscription";
 
-export class BaseHealthCmp implements OnDestroy {
+export class BasePollCmp implements OnDestroy {
 
     protected last_update:string;
     protected subscription:Subscription<any>;

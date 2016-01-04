@@ -6,7 +6,7 @@ import {ServiceHealth} from "../../types/service_health";
 import {HealthCmp} from "./health";
 import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
-import {BaseHealthCmp} from "./base_health";
+import {BasePollCmp} from "./../../util/base_poll_component";
 
 @Component({
     directives: [HealthCmp],
@@ -15,7 +15,7 @@ import {BaseHealthCmp} from "./base_health";
     viewProviders: [HTTP_PROVIDERS],
     templateUrl: "./components/health/health_overview.html"
 })
-export class HealthOverviewCmp extends BaseHealthCmp {
+export class HealthOverviewCmp extends BasePollCmp {
     states:Array<ServiceHealth> = [];
     hasError:boolean;
 

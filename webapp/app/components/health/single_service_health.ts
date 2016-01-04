@@ -6,7 +6,7 @@ import {ServiceHealth} from "../../types/service_health";
 import {Observable} from "rxjs/Observable";
 import {RouteParams} from "angular2/router";
 import {Subscription} from "rxjs/Subscription";
-import {BaseHealthCmp} from "./base_health";
+import {BasePollCmp} from "./../../util/base_poll_component";
 
 @Component({
     selector: "health-overview",
@@ -14,7 +14,7 @@ import {BaseHealthCmp} from "./base_health";
     viewProviders: [HTTP_PROVIDERS],
     templateUrl: "./components/health/single_service_health.html"
 })
-export class SingleServiceHealthCmp extends BaseHealthCmp {
+export class SingleServiceHealthCmp extends BasePollCmp {
     state:ServiceHealth;
     last_update:string;
     name:string;

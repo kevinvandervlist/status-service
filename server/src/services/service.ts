@@ -3,6 +3,7 @@
 
 import {Observable,ConnectableObservable,Scheduler,Subscription} from "@reactivex/rxjs";
 import * as request from "request";
+import {default_services} from "./addable";
 
 export class AllServices {
     private services:ConnectableObservable<Service>;
@@ -10,7 +11,7 @@ export class AllServices {
 
     constructor(svcs?:Array<string>) {
         if (!svcs) {
-            svcs = ["foo", "bar", "baz", "blabla"];
+            svcs = default_services();
         }
         // TODO: is this an acceptable caching strategy?
         this.services = Observable.fromArray(svcs).map((n:string) => {
